@@ -54,6 +54,12 @@ const App: React.FC<IAppProps> = (props) => {
 
                for (let i = 0; i < items.length; i++) {
                     aux = items[i] as HTMLDivElement;
+                    const aux1 = ((((aux as HTMLDivElement).childNodes[0]) as HTMLDivElement));
+                    const aux2 = ((((aux as HTMLDivElement).childNodes[0]) as HTMLDivElement));
+                    if (aux1 && aux2) {
+                         (aux1.childNodes[0] as HTMLDivElement).style.backgroundColor = "inherit";
+                         (aux2.childNodes[1] as HTMLDivElement).style.backgroundColor = "inherit";
+                    }
                     currentVal = Number(aux.innerText.slice(aux.innerText.indexOf('\n'), aux.innerText.indexOf('%')));
                     if (currentVal > max) {
                          max = currentVal;
