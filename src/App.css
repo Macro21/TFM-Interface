@@ -10,14 +10,7 @@
 .header{
      display: flex;
      justify-content: center;
-}
-
-.logo{
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     width: 100%;
-     height: 100%;
+     margin-bottom: 1%;
 }
 
 .center-container{
@@ -38,4 +31,61 @@
 
 .results-table{
      text-align: center;
+}
+
+.rs-nav-item{
+     width: 100%;
+     /* text-align: center; */
+}
+
+.rs-navbar-nav .rs-nav-item > .rs-nav-item-content{
+     font-size: 20px;
+     height: 70px;
+}
+
+.rs-navbar-header{
+     height: auto;
+}
+
+.navbar-brand {
+     padding: 18px 20px;
+     display: inline-block;
+}
+
+.main-header{
+     display: flex;
+     justify-content: center;
+     margin-bottom: 10px;
+     height: 70px;
+     background-color: #f7f7fa;
+
+}
+
+.header-option{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 20px;
+     font-size: 20px;
+     color: #575757;
+     border-radius: 0;
+     box-sizing: border-box;
+     background-color: transparent;
+     cursor: pointer;
+}
+
+.header-option:last-child{
+     margin-right: 0;
+}
+
+.active{
+     color: #1675e0;
+}
+
+.header-option:hover{
+     background-color: #e5e5ea;
+}
+
+.header-option:first-child:hover{
+     background-color: transparent;
 }

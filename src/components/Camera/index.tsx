@@ -2,25 +2,58 @@ import React from 'react';
 import * as RCamera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation';
-
+import { ICameraProps } from './models';
 import {
      MobileView,
      BrowserView
 } from "react-device-detect";
 import "./camera.css";
 
+// export const Camera: React.FC<ICameraProps> = (props) => {
+
+//      const blobToBase64 = async (blob: Blob) => {
+//           return new Promise((resolve, _) => {
+//                const reader = new FileReader();
+//                reader.onloadend = () => resolve(reader.result);
+//                reader.readAsDataURL(blob);
+//           });
+//      }
+
+//      const onTakePhoto = async (image: string) => {
+//           try {
+//                const aux = await fetch(image);
+//                const imageBlob = await aux.blob();
+//                const base64Image = await blobToBase64(imageBlob);
+//                console.log(base64Image, 'do whatever you want with the image');
+//           }
+//           catch (e) {
+//                console.error(e);
+//                alert("Ha ocurrido un error al tomar la foto.");
+//           }
+//      };
+
+//      return (
+//           <div className="camera-container">
+//                <DomCamera
+//                     facingMode="USER"
+//                     captureButtonRenderer={(onClick: Function) => <TakePhotoButton onClick={onClick} />}
+//                     onTakePhoto={onTakePhoto}
+//                />
+//           </div>)
+// };
 
 export enum FacingMode {
      ENV = "environment",
      USER = "user",
 }
 
-export const Camera = (props) => {
+export const Camera: React.FC<ICameraProps> = (props) => {
+     const { onTakePhoto } = props;
      const [facingMode, setFacingMode] = React.useState<FacingMode>(FacingMode.USER);
-     const handleTakePhoto = (dataUri) => {
-          // Do stuff with the photo...
-          console.log('takePhoto', dataUri);
-     }
+     // const handleTakePhoto = (dataUri) => {
+     //      // Do stuff with the photo...
+     //      console.log('takePhoto', dataUri);
+     // }
 
      return (
           <React.Fragment>
@@ -30,7 +63,7 @@ export const Camera = (props) => {
                               imageType={"jpg"}
                               isImageMirror={false}
                               idealFacingMode={facingMode}
-                              onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
+                              onTakePhoto={onTakePhoto}
                          />
                     </div>
                </BrowserView>
@@ -50,7 +83,7 @@ export const Camera = (props) => {
                                         imageType={"jpg"}
                                         isImageMirror={false}
                                         idealFacingMode={facingMode}
-                                        onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
+                                        onTakePhoto={onTakePhoto}
                                    />
 
                                    <div className="swap-camera">
