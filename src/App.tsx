@@ -37,7 +37,7 @@ const App: React.FC<IAppProps> = (props) => {
           }
           catch (e) {
                console.error(e);
-               setProcessResult([{ "class": "Carton", "probability": "80%" }, { "class": "Metal", "probability": "20%" }])
+               //setProcessResult([{ "class": "Carton", "probability": "80%" }, { "class": "Metal", "probability": "20%" }])
           }
           setProcessing(false);
      };
