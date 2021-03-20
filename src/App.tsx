@@ -13,6 +13,7 @@ const App: React.FC<IAppProps> = (props) => {
 
      const [processing, setProcessing] = React.useState<boolean>(false);
      const [processResult, setProcessResult] = React.useState<Array<IResultData>>([]);
+     const bodyRef = React.useRef<any>();
 
      const onTakePhoto = async (image: string) => {
           setProcessing(true);
@@ -31,17 +32,48 @@ const App: React.FC<IAppProps> = (props) => {
                     })
                });
                const response: Array<IResultData> = await responsePromise.json();
-               console.log(response);
+               //console.log(response);
                setProcessResult(response);
           }
           catch (e) {
                console.error(e);
-               alert(JSON.stringify(e));
+               //setProcessResult([{ "class": "Carton", "probability": "80%" }, { "class": "Metal", "probability": "20%" }])
           }
 
 
           setProcessing(false);
      };
+
+     React.useEffect(() => {
+          if (!processing) {
+               console.log(bodyRef.current.tableBodyRef.current.childNodes[0].childNodes)
+               const items: Array<any> = bodyRef.current.tableBodyRef.current.childNodes[0].childNodes;
+               console.log(items);
+               let max = 0;
+               let currentVal = 0;
+               let aux;
+               let maxIndex = 0;
+
+               for (let i = 0; i < items.length; i++) {
+                    aux = items[i] as HTMLDivElement;
+                    currentVal = Number(aux.innerText.slice(aux.innerText.indexOf('\n'), aux.innerText.indexOf('%')));
+                    if (currentVal > max) {
+                         max = currentVal;
+                         maxIndex = i;
+                    }
+               }
+               if (items && items.length > 0) {
+                    const aux1 = ((((items[maxIndex] as HTMLDivElement).childNodes[0]) as HTMLDivElement));
+                    const aux2 = ((((items[maxIndex] as HTMLDivElement).childNodes[0]) as HTMLDivElement));
+                    if (aux1 && aux2) {
+                         (aux1.childNodes[0] as HTMLDivElement).style.backgroundColor = "Red";
+                         (aux2.childNodes[1] as HTMLDivElement).style.backgroundColor = "Red";
+                    }
+               }
+          }
+
+
+     }, [processing]);
 
      return (
           <div>
@@ -60,6 +92,9 @@ const App: React.FC<IAppProps> = (props) => {
                     </div>
                     <div className="header-option">
                          Records
+                    </div>
+                    <div className="header-option">
+                         Prediction accuracy
                     </div>
                </div>
 
@@ -85,6 +120,7 @@ const App: React.FC<IAppProps> = (props) => {
                               virtualized
                               autoHeight
                               data={processResult}
+                              ref={bodyRef}
                          >
 
                               <Table.Column width={200} fixed>
@@ -94,7 +130,7 @@ const App: React.FC<IAppProps> = (props) => {
 
                               <Table.Column width={200}>
                                    <Table.HeaderCell>Probabilities </Table.HeaderCell>
-                                   <Table.Cell dataKey="probability" />
+                                   <Table.Cell className="winner" dataKey="probability" />
                               </Table.Column>
                          </Table>
                     </div>
