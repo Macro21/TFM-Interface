@@ -37,10 +37,8 @@ const App: React.FC<IAppProps> = (props) => {
           }
           catch (e) {
                console.error(e);
-               //setProcessResult([{ "class": "Carton", "probability": "80%" }, { "class": "Metal", "probability": "20%" }])
+               setProcessResult([{ "class": "Carton", "probability": "80%" }, { "class": "Metal", "probability": "20%" }])
           }
-
-
           setProcessing(false);
      };
 
@@ -66,13 +64,11 @@ const App: React.FC<IAppProps> = (props) => {
                     const aux1 = ((((items[maxIndex] as HTMLDivElement).childNodes[0]) as HTMLDivElement));
                     const aux2 = ((((items[maxIndex] as HTMLDivElement).childNodes[0]) as HTMLDivElement));
                     if (aux1 && aux2) {
-                         (aux1.childNodes[0] as HTMLDivElement).style.backgroundColor = "Red";
-                         (aux2.childNodes[1] as HTMLDivElement).style.backgroundColor = "Red";
+                         (aux1.childNodes[0] as HTMLDivElement).style.backgroundColor = "springgreen";
+                         (aux2.childNodes[1] as HTMLDivElement).style.backgroundColor = "springgreen";
                     }
                }
           }
-
-
      }, [processing]);
 
      return (
@@ -121,15 +117,17 @@ const App: React.FC<IAppProps> = (props) => {
                               autoHeight
                               data={processResult}
                               ref={bodyRef}
+                              style={{ color: 'black' }}
+                              bordered
                          >
 
                               <Table.Column width={200} fixed>
-                                   <Table.HeaderCell>Class</Table.HeaderCell>
+                                   <Table.HeaderCell style={{ fontSize: 16 }}>Class</Table.HeaderCell>
                                    <Table.Cell dataKey="class" />
                               </Table.Column>
 
                               <Table.Column width={200}>
-                                   <Table.HeaderCell>Probabilities </Table.HeaderCell>
+                                   <Table.HeaderCell style={{ fontSize: 16 }}>Probabilities </Table.HeaderCell>
                                    <Table.Cell className="winner" dataKey="probability" />
                               </Table.Column>
                          </Table>
