@@ -17,7 +17,7 @@ const App: React.FC<IAppProps> = (props) => {
      const onTakePhoto = async (image: string) => {
           setProcessing(true);
 
-          console.log(image);
+          console.log("imagen", image);
 
           try {
                // TODO fetch API http://localhost:8081/v1/predict
