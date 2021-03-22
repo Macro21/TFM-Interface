@@ -5,14 +5,22 @@ import { Icon } from 'rsuite';
 import { Message } from 'rsuite';
 import { Table } from 'rsuite';
 import { ENDPOINTS } from './utils';
+import { Records } from './components';
 
 import 'rsuite/dist/styles/rsuite-default.css';
 import './App.css';
+
+export enum Tabs {
+     Classify = "classify",
+     Records = "records",
+     Accuracy = "accuracy"
+}
 
 const App: React.FC<IAppProps> = (props) => {
 
      const [processing, setProcessing] = React.useState<boolean>(false);
      const [processResult, setProcessResult] = React.useState<Array<IResultData>>([]);
+     const [active, setActive] = React.useState<string>(Tabs.Classify);
      const bodyRef = React.useRef<any>();
 
      const onTakePhoto = async (image: string) => {
@@ -89,56 +97,62 @@ const App: React.FC<IAppProps> = (props) => {
                               src={"https://www.ucm.es/data/cont/docs/3-2016-07-21-EscudoUCMTransparenteBig.png"}
                          />
                     </div>
-                    <div className="header-option active">
+                    <div className={`header-option ${active === Tabs.Classify ? "active" : ""}`} onClick={() => setActive(Tabs.Classify)}>
                          Classify
                     </div>
-                    <div className="header-option">
+                    <div className={`header-option ${active === Tabs.Records ? "active" : ""}`} onClick={() => setActive(Tabs.Records)}>
                          Records
                     </div>
-                    <div className="header-option">
+                    <div className={`header-option ${active === Tabs.Accuracy ? "active" : ""}`} onClick={() => setActive(Tabs.Accuracy)}>
                          Prediction accuracy
                     </div>
                </div>
 
-               <div className="center-container">
-                    <Camera
-                         onTakePhoto={onTakePhoto}
-                    />
-               </div>
-
-               {processing && <div className="center-container">
-                    <Message
-                         className="result-message"
-                         type="success"
-                         description={<div className="classifying-message"> <Icon size="lg" icon="spinner" spin /> <p>Classifying ...</p> </div>}
-                    />
-               </div>}
-
-               <div className="results-table-main">
-                    <div className="results-table">
-                         <Table
-                              height={200}
-                              width={400}
-                              virtualized
-                              autoHeight
-                              data={processResult}
-                              ref={bodyRef}
-                              style={{ color: 'black' }}
-                              bordered
-                         >
-
-                              <Table.Column width={200} fixed>
-                                   <Table.HeaderCell style={{ fontSize: 16 }}>Class</Table.HeaderCell>
-                                   <Table.Cell dataKey="class" />
-                              </Table.Column>
-
-                              <Table.Column width={200}>
-                                   <Table.HeaderCell style={{ fontSize: 16 }}>Probabilities </Table.HeaderCell>
-                                   <Table.Cell className="winner" dataKey="probability" />
-                              </Table.Column>
-                         </Table>
+               {active === Tabs.Classify && <React.Fragment>
+                    <div className="center-container">
+                         <Camera
+                              onTakePhoto={onTakePhoto}
+                         />
                     </div>
-               </div>
+
+                    {processing && <div className="center-container">
+                         <Message
+                              className="result-message"
+                              type="success"
+                              description={<div className="classifying-message"> <Icon size="lg" icon="spinner" spin /> <p>Classifying ...</p> </div>}
+                         />
+                    </div>}
+                    <div className="results-table-main">
+                         <div className="results-table">
+                              <Table
+                                   height={200}
+                                   width={400}
+                                   virtualized
+                                   autoHeight
+                                   data={processResult}
+                                   ref={bodyRef}
+                                   style={{ color: 'black' }}
+                                   bordered
+                              >
+
+                                   <Table.Column width={200} fixed>
+                                        <Table.HeaderCell style={{ fontSize: 16 }}>Class</Table.HeaderCell>
+                                        <Table.Cell dataKey="class" />
+                                   </Table.Column>
+
+                                   <Table.Column width={200}>
+                                        <Table.HeaderCell style={{ fontSize: 16 }}>Probabilities </Table.HeaderCell>
+                                        <Table.Cell className="winner" dataKey="probability" />
+                                   </Table.Column>
+                              </Table>
+                         </div>
+                    </div>
+               </React.Fragment>}
+               {active === Tabs.Records && <React.Fragment>
+                    <Records
+
+                    />
+               </React.Fragment>}
           </div >)
 };
 
