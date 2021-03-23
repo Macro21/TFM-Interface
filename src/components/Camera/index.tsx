@@ -96,7 +96,6 @@ export const Camera: React.FC<ICameraProps> = (props) => {
                                              title="Swap camera"
                                         />
                                    </div>
-
                               </div>
                          </Orientation>
                     </DeviceOrientation>

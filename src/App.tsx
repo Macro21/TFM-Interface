@@ -13,7 +13,7 @@ import './App.css';
 export enum Tabs {
      Classify = "classify",
      Records = "records",
-     Accuracy = "accuracy"
+     About = "about"
 }
 
 const App: React.FC<IAppProps> = (props) => {
@@ -103,8 +103,8 @@ const App: React.FC<IAppProps> = (props) => {
                     <div className={`header-option ${active === Tabs.Records ? "active" : ""}`} onClick={() => setActive(Tabs.Records)}>
                          Records
                     </div>
-                    <div className={`header-option ${active === Tabs.Accuracy ? "active" : ""}`} onClick={() => setActive(Tabs.Accuracy)}>
-                         Accuracy
+                    <div className={`header-option ${active === Tabs.About ? "active" : ""}`} onClick={() => setActive(Tabs.About)}>
+                         About
                     </div>
                </div>
 
@@ -152,6 +152,30 @@ const App: React.FC<IAppProps> = (props) => {
                     <Records
 
                     />
+               </React.Fragment>}
+               {active === Tabs.About && <React.Fragment>
+                    <div className="about">
+                         <img
+                              onClick={() => window.open("https://informatica.ucm.es/", '_blank')}
+                              width={350}
+                              height={350}
+                              src={`${process.env.PUBLIC_URL}/fdi.png`}
+                              alt="FDI"
+                              title="FDI"
+                         />
+                         <p>Master's Dissertation</p>
+                         <p>Internet of Things</p>
+                         <p>Universidad Complutense de Madrid</p>
+                         <p>Ionut Andrei Vaduva</p>
+                         <a
+                              title="Project code on github"
+                              href="https://github.com/Macro21/TFM-Interface"
+                              target="_blank"
+                              rel="noreferrer">
+                              Project code on github
+                         </a>
+                    </div>
+
                </React.Fragment>}
           </div >)
 };

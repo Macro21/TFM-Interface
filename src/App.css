@@ -89,3 +89,21 @@
 .header-option:first-child:hover{
      background-color: transparent;
 }
+
+.about{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     margin-top: 40px;
+     font-size: 30px;
+}
+
+.about p{
+     margin: 25px;
+}
+
+.about img{
+     margin-bottom: 20px;
+     cursor: pointer;
+}
