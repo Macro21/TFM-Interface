@@ -1,6 +1,6 @@
 import React from 'react';
 import { IRecordsProps } from './models';
-import { Table } from 'rsuite';
+import { Table, Icon, Message } from 'rsuite';
 import './records.css';
 import { ENDPOINTS } from '../../utils';
 import { IResultData } from '../../models';
@@ -12,6 +12,7 @@ export interface IItem {
 
 export const Records: React.FC<IRecordsProps> = (props) => {
      const [items, setItems] = React.useState<Array<IItem>>([]);
+     const [processing, setProcessing] = React.useState<boolean>(true);
      const bodyRef = React.useRef<any>();
 
      React.useEffect(() => {
@@ -30,6 +31,7 @@ export const Records: React.FC<IRecordsProps> = (props) => {
                     });
                });
                setItems(newItems);
+               setProcessing(false);
           }).catch(console.error)
      }, []);
 
@@ -76,47 +78,57 @@ export const Records: React.FC<IRecordsProps> = (props) => {
      }, [items]);
 
      return (
-          <div className="main-records">
-               <div className="row">
-                    {items.map((item, i) => {
-                         return (
-                              <div className="col">
-                                   <img
-                                        width={224}
-                                        height={224}
-                                        src={item.image}
-                                        alt="test"
-                                   />
-                                   <div className="table">
-                                        <Table
-                                             height={224}
-                                             width={224}
-                                             virtualized
-                                             autoHeight
-                                             data={item.result}
-                                             ref={bodyRef}
-                                             id={"Table" + i}
-                                             style={{ color: 'black' }}
-                                             bordered
-                                        >
+          <React.Fragment>
+               {processing ? <div className="center-container">
+                    <Message
+                         className="result-message"
+                         type="success"
+                         description={<div className="classifying-message"> <Icon size="lg" icon="spinner" spin /> <p>Loading records...(
+                              The first time it will take longer due to licensing issues)</p> </div>}
+                    />
+               </div> :
+                    <div className="main-records">
+                         <div className="row">
+                              {items.map((item, i) => {
+                                   return (
+                                        <div className="col">
+                                             <img
+                                                  width={224}
+                                                  height={224}
+                                                  src={item.image}
+                                                  alt="test"
+                                             />
+                                             <div className="table">
+                                                  <Table
+                                                       height={224}
+                                                       width={224}
+                                                       virtualized
+                                                       autoHeight
+                                                       data={item.result}
+                                                       ref={bodyRef}
+                                                       id={"Table" + i}
+                                                       style={{ color: 'black' }}
+                                                       bordered
+                                                  >
 
-                                             <Table.Column width={112} fixed>
-                                                  <Table.HeaderCell style={{ fontSize: 16 }}>Class</Table.HeaderCell>
-                                                  <Table.Cell dataKey="class" />
-                                             </Table.Column>
+                                                       <Table.Column width={112} fixed>
+                                                            <Table.HeaderCell style={{ fontSize: 16 }}>Class</Table.HeaderCell>
+                                                            <Table.Cell dataKey="class" />
+                                                       </Table.Column>
 
-                                             <Table.Column width={112}>
-                                                  <Table.HeaderCell style={{ fontSize: 16 }}>Probabilities </Table.HeaderCell>
-                                                  <Table.Cell className="winner" dataKey="probability" >
+                                                       <Table.Column width={112}>
+                                                            <Table.HeaderCell style={{ fontSize: 16 }}>Probabilities </Table.HeaderCell>
+                                                            <Table.Cell className="winner" dataKey="probability" >
 
-                                                  </Table.Cell>
-                                             </Table.Column>
-                                        </Table>
-                                   </div>
-                              </div>
-                         );
-                    })}
-               </div>
-          </div>
+                                                            </Table.Cell>
+                                                       </Table.Column>
+                                                  </Table>
+                                             </div>
+                                        </div>
+                                   );
+                              })}
+                         </div>
+                    </div>}
+          </React.Fragment>
      );
 }
