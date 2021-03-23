@@ -15,7 +15,7 @@ export const Records: React.FC<IRecordsProps> = (props) => {
      const bodyRef = React.useRef<any>();
 
      React.useEffect(() => {
-          fetch(ENDPOINTS.PREDICTION_API, {
+          fetch(`${ENDPOINTS.PREDICTION_API}?records=1`, {
                method: 'GET',
                headers: {
                     'Accept': 'application/json'

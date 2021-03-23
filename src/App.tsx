@@ -104,7 +104,7 @@ const App: React.FC<IAppProps> = (props) => {
                          Records
                     </div>
                     <div className={`header-option ${active === Tabs.Accuracy ? "active" : ""}`} onClick={() => setActive(Tabs.Accuracy)}>
-                         Prediction accuracy
+                         Accuracy
                     </div>
                </div>
 
