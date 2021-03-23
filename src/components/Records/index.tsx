@@ -83,8 +83,19 @@ export const Records: React.FC<IRecordsProps> = (props) => {
                     <Message
                          className="result-message"
                          type="success"
-                         description={<div className="classifying-message"> <Icon size="lg" icon="spinner" spin /> <p>Loading records...(
-                              The first time it will take longer due to licensing issues)</p> </div>}
+                         description={<div className="classifying-message">
+                              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: "center" }}>
+                                   <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <Icon size="lg" icon="spinner" spin />
+                                   </div>
+                                   <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <p>Loading records...</p>
+                                   </div>
+                                   <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <p>(The first time it will take longer due to licensing issues)</p>
+                                   </div>
+                              </div>
+                         </div>}
                     />
                </div> :
                     <div className="main-records">
