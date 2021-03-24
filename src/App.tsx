@@ -23,6 +23,10 @@ const App: React.FC<IAppProps> = (props) => {
      const [active, setActive] = React.useState<string>(Tabs.Classify);
      const bodyRef = React.useRef<any>();
 
+     React.useEffect(() => {
+          document.title = "Garbage classification";
+     }), [];
+
      const onTakePhoto = async (image: string) => {
           setProcessing(true);
 
